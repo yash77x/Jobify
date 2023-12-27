@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -18,6 +19,9 @@ public class JobifyServiceImpl implements JobifyService {
 
 	@Autowired
 	private JobifyRepositoryImpl repo;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public boolean ValidateAndSave(JobifyDTO dto, Model model) {
@@ -49,6 +53,9 @@ public class JobifyServiceImpl implements JobifyService {
 		}
 		
 		if(isValid == true) {
+			String encryptedPassword = passwordEncoder.encode(dto.getPassword());
+			dto.setPassword(encryptedPassword);
+
 			JobifyEntity entity = new JobifyEntity();
 			entity.setCreatedBy(dto.getEmail());
 			entity.setCreatedOn(LocalDate.now());

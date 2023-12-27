@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import com.xworkz.jobify.dto.JobifyDTO;
 import com.xworkz.jobify.dto.JobifyEntity;
 import com.xworkz.jobify.repo.JobifyRepositoryImpl;
+import com.xworkz.jobify.utils.EmailUtil;
 
 @Service
 public class JobifyServiceImpl implements JobifyService {
@@ -52,7 +53,9 @@ public class JobifyServiceImpl implements JobifyService {
 			entity.setCreatedBy(dto.getEmail());
 			entity.setCreatedOn(LocalDate.now());
 			BeanUtils.copyProperties(dto, entity);
-				return repo.save(entity);
+			EmailUtil utils = new EmailUtil();
+			utils.mail(dto.getEmail(), dto.getName());
+			return repo.save(entity);
 		}
 		
 		return isValid;

@@ -19,7 +19,7 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #6f5596">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#"> &ensp; &ensp; JOBIFY</a>
 		</div>
@@ -32,15 +32,19 @@
             <div class="container">
                 <div class="signup-content">
                     <div class="signup-image">
-                        <img src="images/signup-image.jpeg" style="border-radius: 20%; width: 100%;" alt="sing up image">
+                        <img src="images/young.jpg" style="border-radius: 20%; width: 100%;" alt="sing up image">
                         <img src="images/signup.png" width="100%" alt="sing up image">
                     </div>
                     <div style=" margin-left: 40px;   border-left: 1px dotted #5f656d; /* Border on the left */
                     width: 1px; /* Width instead of height */
                     "></div>
                     <div class="signup-form">
+                    
+                      <ul class="nav nav-pills nav-justified mb-3">
+                            <a class="nav-link" style="color:#6f5596; " href="Login.jsp" >Login</a>
+                            <a class="nav-link active" style="background-color: #6f5596;" href="#">Register</a>
+                      </ul>
 						
-                        <h2 class="form-title">Sign up</h2>	
                         <h2>${saved}</h2>
                         <form action="save" method="POST" class="register-form" id="register-form">
                             <div class="form-group">
@@ -83,7 +87,7 @@
                               </div>
                               </div>
                             <div class="form-group">
-                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" required="required"/>
                                 <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                             </div>
                             <div class="form-group form-button" >

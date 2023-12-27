@@ -1,7 +1,5 @@
 package com.xworkz.jobify.dto;
 
-import com.xworkz.jobify.enumerator.AccountType;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

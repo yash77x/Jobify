@@ -23,7 +23,7 @@ public class JobifyController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(JobifyDTO dto, Model model) {
 		boolean saved = service.ValidateAndSave(dto, model);
-		if (saved) {
+		if (saved == true) {
 			model.addAttribute("saved", "Registered Successfully");
 			return "Register";
 		}

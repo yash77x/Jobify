@@ -47,24 +47,31 @@
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="name" id="name" placeholder="Your Name"/>
                             </div>
+                            <p style="color: red;">${nameInvalid}</p>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
                                 <input type="email" name="email" id="email" placeholder="Your Email"/>
                             </div>
+                            <p style="color: red;">${emailInvalid}</p> 
+                            <p style="color: red;">${emailExist}</p>
+                                                    
                             <div class="form-group">
                                 <label for="Mobile"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="tel" name="mobile" id="mobile" placeholder="Mobile Number"/>
                             </div>
+                            <p style="color: red;">${mobileInvalid}</p>
                             
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                                 <input type="password" name="password" id="pass" placeholder="Password"/>
                             </div>
+                            <p style="color: red;">${passwordInvalid}</p>
                             
                             <div class="form-group">
                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
                                 <input type="password" name="confirmPass" id="re_pass" placeholder="Repeat your password"/>
                             </div>
+                            <p style="color: red;">${conPasswordInvalid}</p>
                             
                             <div class="form-group">
                             <div class="form-check form-check-inline">
@@ -79,8 +86,8 @@
                                 <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
                                 <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                             </div>
-                            <div class="form-group form-button">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                            <div class="form-group form-button" >
+                                <input type="submit" style="background-color: #6f5596" name="signup" id="signup" class="form-submit" value="Register"/>
                             </div>
                         </form>
                     </div>

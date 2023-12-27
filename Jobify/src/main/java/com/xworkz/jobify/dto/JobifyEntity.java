@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.xworkz.jobify.enumerator.AccountType;
@@ -15,6 +16,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "Register")
+@NamedQuery(name = "findEmail", query = "Select dto from JobifyEntity dto where dto.email = :em")
 public class JobifyEntity {
 	
 	@Id
@@ -27,5 +29,7 @@ public class JobifyEntity {
 	private String account;
 	private String createdBy;
 	private LocalDate createdOn;
+	private String updatedBy;
+	private LocalDate updatedOn;
 
 }

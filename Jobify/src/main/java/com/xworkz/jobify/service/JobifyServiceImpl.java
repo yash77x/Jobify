@@ -1,6 +1,7 @@
 package com.xworkz.jobify.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.ui.Model;
 
 import com.xworkz.jobify.dto.JobifyDTO;
 import com.xworkz.jobify.dto.JobifyEntity;
-import com.xworkz.jobify.repo.JobifyRepository;
 import com.xworkz.jobify.repo.JobifyRepositoryImpl;
 
 @Service
@@ -21,13 +21,12 @@ public class JobifyServiceImpl implements JobifyService {
 	@Override
 	public boolean ValidateAndSave(JobifyDTO dto, Model model) {
 		boolean isValid = true;
-		if (dto != null) {
-			if (dto.getName() == null || dto.getName().isEmpty() || dto.getName().length() <= 3) {
+		if(dto!=null) {
+			if (dto.getName() == null || dto.getName().isEmpty() || dto.getName().length()<=3) {
 				model.addAttribute("nameInvalid", "Please Enter Correct Name");
 				isValid = false;
 			}
-			if (dto.getEmail() == null || dto.getEmail().isEmpty()
-					|| !dto.getEmail().matches("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")) {
+			if (dto.getEmail() == null || dto.getEmail().isEmpty() || !dto.getEmail().matches("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")) {
 				model.addAttribute("emailInvalid", "Please Enter Correct Email");
 				isValid = false;
 			}
@@ -36,27 +35,53 @@ public class JobifyServiceImpl implements JobifyService {
 				isValid = false;
 			}
 			if (!dto.getPassword().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
-				model.addAttribute("passwordInvalid",
-						"Please Enter Password having Min 8 characters, one uppercase letter, one lowercase letter, one number and one special character:");
+				model.addAttribute("passwordInvalid", "Please Enter Password having Min 8 characters, one uppercase letter, one lowercase letter, one number and one special character:");
 				isValid = false;
 			}
 			if (!dto.getConfirmPass().equals(dto.getPassword())) {
 				model.addAttribute("conPasswordInvalid", "Password Does not Match");
 				isValid = false;
 			}
-
+			if(isExist(dto.getEmail(), model)) {
+				isValid = false;
+			}
 		}
-
-		if (isValid == true) {
-
+		
+		if(isValid == true) {
 			JobifyEntity entity = new JobifyEntity();
 			entity.setCreatedBy(dto.getEmail());
 			entity.setCreatedOn(LocalDate.now());
-
 			BeanUtils.copyProperties(dto, entity);
-			return repo.save(entity);
+				return repo.save(entity);
 		}
-
+		
 		return isValid;
+	}
+
+	@Override
+	public List<JobifyEntity> readAll() {
+		return repo.readAll();
+
+	}
+	
+	@Override
+	public JobifyEntity findByEmail(String email) {
+		if(email!=null && !email.isEmpty()) {
+			return repo.findByEmail(email);
+		}
+		return null;
+	}
+
+	@Override
+	public boolean isExist(String email, Model model) {
+		JobifyEntity found = repo.findByEmail(email);
+		if(found!=null) {
+			if(found.getEmail().equals(email)) {
+				model.addAttribute("emailExist", "Email Already Exists.");
+				return true;
+			}
+			return false;
+		}
+		return false;
 	}
 }

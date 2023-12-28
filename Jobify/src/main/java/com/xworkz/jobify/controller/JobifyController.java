@@ -5,9 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xworkz.jobify.dto.JobifyDTO;
-import com.xworkz.jobify.service.JobifyService;
+import com.xworkz.jobify.dto.JobifyEntity;
 import com.xworkz.jobify.service.JobifyServiceImpl;
 
 @Controller
@@ -28,5 +29,18 @@ public class JobifyController {
 			return "Register";
 		}
 		return "Register";
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(@RequestParam String email, @RequestParam String password) {
+		JobifyEntity entity = service.login(email, password);
+		if (entity != null) {
+			if (entity.getAccount().equals("JobSeeker")) {
+				return "Jobseeker";
+			}
+			return "Jobprovider";
+		}
+
+		return "Login";
 	}
 }

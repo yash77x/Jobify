@@ -94,4 +94,18 @@ public class JobifyServiceImpl implements JobifyService {
 		}
 		return false;
 	}
+
+	@Override
+	public JobifyEntity login(String email, String password) {
+	    if (email != null && !email.isEmpty()) {
+	        JobifyEntity entity = repo.findByEmail(email);
+	        if (entity != null) {
+	            String storedEncodedPassword = entity.getPassword();
+	            if (passwordEncoder.matches(password, storedEncodedPassword)) {
+	                return entity;
+	            }
+	        }
+	    }
+	    return null;
+	}
 }

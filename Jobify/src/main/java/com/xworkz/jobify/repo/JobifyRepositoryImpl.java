@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +21,7 @@ public class JobifyRepositoryImpl implements JobifyRepository {
 	private EntityManagerFactory emf;
 
 	@Override
+	@Transactional
 	public boolean save(JobifyEntity dto) {
 		
 		EntityManager em = emf.createEntityManager();
@@ -27,6 +29,7 @@ public class JobifyRepositoryImpl implements JobifyRepository {
 		
 		try {
 			transaction.begin();
+			dto = em.merge(dto);
 			em.persist(dto);
 			transaction.commit();
 			return true;

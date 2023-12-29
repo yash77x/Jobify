@@ -32,8 +32,8 @@ public class JobifyController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@RequestParam String email, @RequestParam String password) {
-		JobifyEntity entity = service.login(email, password);
+	public String login(@RequestParam String email, @RequestParam String password, Model model) {
+		JobifyEntity entity = service.login(email, password, model);
 		if (entity != null) {
 			if (entity.getAccount().equals("JobSeeker")) {
 				return "Jobseeker";

@@ -9,9 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import com.xworkz.jobify.enumerator.AccountType;
-
 import lombok.Data;
+
 
 @Data
 @Entity
@@ -31,5 +30,7 @@ public class JobifyEntity {
 	private LocalDate createdOn;
 	private String updatedBy;
 	private LocalDate updatedOn;
+	private int count;
+	private String status;
 
 }
